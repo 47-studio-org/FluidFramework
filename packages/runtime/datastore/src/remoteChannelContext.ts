@@ -5,11 +5,14 @@
 
 import { AttachState } from "@fluidframework/container-definitions";
 import { assert, LazyPromise } from "@fluidframework/core-utils/internal";
-import { IChannel, IFluidDataStoreRuntime } from "@fluidframework/datastore-definitions/internal";
-import { ISequencedDocumentMessage } from "@fluidframework/driver-definitions";
+import {
+	IChannel,
+	IFluidDataStoreRuntime,
+} from "@fluidframework/datastore-definitions/internal";
 import {
 	IDocumentStorageService,
 	ISnapshotTree,
+	ISequencedDocumentMessage,
 } from "@fluidframework/driver-definitions/internal";
 import {
 	IExperimentalIncrementalSummaryContext,
@@ -100,11 +103,7 @@ export class RemoteChannelContext implements IChannelContext {
 			// Send all pending messages to the channel
 			assert(this.pending !== undefined, 0x23f /* "pending undefined" */);
 			for (const message of this.pending) {
-				this.services.deltaConnection.process(
-					message,
-					false,
-					undefined /* localOpMetadata */,
-				);
+				this.services.deltaConnection.process(message, false, undefined /* localOpMetadata */);
 			}
 			this.thresholdOpsCounter.send("ProcessPendingOps", this.pending.length);
 

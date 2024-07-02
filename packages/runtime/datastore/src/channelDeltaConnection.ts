@@ -4,8 +4,11 @@
  */
 
 import { assert } from "@fluidframework/core-utils/internal";
-import { IDeltaConnection, IDeltaHandler } from "@fluidframework/datastore-definitions/internal";
-import { ISequencedDocumentMessage } from "@fluidframework/driver-definitions";
+import {
+	IDeltaConnection,
+	IDeltaHandler,
+} from "@fluidframework/datastore-definitions/internal";
+import { ISequencedDocumentMessage } from "@fluidframework/driver-definitions/internal";
 import { DataProcessingError } from "@fluidframework/telemetry-utils/internal";
 
 const stashedOpMetadataMark = Symbol();
@@ -72,7 +75,11 @@ export class ChannelDeltaConnection implements IDeltaConnection {
 		this.handler.setConnectionState(connected);
 	}
 
-	public process(message: ISequencedDocumentMessage, local: boolean, localOpMetadata: unknown) {
+	public process(
+		message: ISequencedDocumentMessage,
+		local: boolean,
+		localOpMetadata: unknown,
+	) {
 		try {
 			// catches as data processing error whether or not they come from async pending queues
 			processWithStashedOpMetadataHandling(

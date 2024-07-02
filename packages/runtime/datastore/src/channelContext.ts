@@ -9,10 +9,10 @@ import {
 	IChannelFactory,
 	IFluidDataStoreRuntime,
 } from "@fluidframework/datastore-definitions/internal";
-import { ISequencedDocumentMessage } from "@fluidframework/driver-definitions";
 import {
 	IDocumentStorageService,
 	ISnapshotTree,
+	ISequencedDocumentMessage,
 } from "@fluidframework/driver-definitions/internal";
 import { readAndParse } from "@fluidframework/driver-utils/internal";
 import {
@@ -41,7 +41,11 @@ export interface IChannelContext {
 
 	setConnectionState(connected: boolean, clientId?: string);
 
-	processOp(message: ISequencedDocumentMessage, local: boolean, localOpMetadata?: unknown): void;
+	processOp(
+		message: ISequencedDocumentMessage,
+		local: boolean,
+		localOpMetadata?: unknown,
+	): void;
 
 	summarize(
 		fullTree?: boolean,
